@@ -1,0 +1,77 @@
+{% extends 'producer/dashboard.html'%}
+{%block content%}
+    <br>
+    <div class="row">
+        {%for item in product%}
+    <div class="col-sm-3">
+        <div class="card">
+            <img class="card-img-top" src="{{item.image.url}}" width="200px" height="200px" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{item.name}}</h5>
+              <p class="card-text">
+                <ul class="list-group">
+                    <li class="list-group-item">Product Type: {{item.ptype}}</li>
+                    <li class="list-group-item">Quantity Available: {{item.quantity}} Kgs</li>
+                    <li class="list-group-item">Delivery Time: {{item.usual_deliver_time}} days</li>
+                    <li class="list-group-item">Date Added: {{item.added_on}}</li>
+                </ul>
+              </p>
+              <a data-target="#updateProduct" data-toggle="modal" class="btn btn-outline-primary" onclick="displayData('{{item.id}}','{{item.quantity}}','{{item.ready_to_dispatch}}','{{item.usual_deliver_time}}',)">Update Product</a>
+            </div>
+        </div>
+
+    </div>
+    {%endfor%}
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="updateProduct" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <form action="/producer/updateProduct" method="POST">
+            <div class="modal-body">
+                {%csrf_token%}
+                <div class="row">
+                    <input type="text" id="pid" style="display: none;" name="pid" value="{{item.id}}" readonly>
+                </div>
+                <div class="row">
+                    <div class="col-sm form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" id="quantity" class="form-control" name="quantity" required>
+                    </div>
+                    <div class="col-sm form-group">
+                        <label for="ready_to_dispatch">Ready to Dispatch</label>
+                        <select id="ready_to_dispatch" class="form-control" name="ready_to_dispatch">
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm form-group">
+                        <label for="usual_deliver_time">Usual Delivery Time</label>
+                        <input type="text" id="usual_deliver_time" class="form-control" name="usual_deliver_time" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update Product</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+<script>
+    function displayData(item,quantity,ready_to_dispatch,usual_deliver_time){
+        document.getElementById('pid').value=item;
+        document.getElementById('quantity').value=quantity;
+        document.getElementById('ready_to_dispatch').value=ready_to_dispatch;
+        document.getElementById('usual_deliver_time').value=usual_deliver_time;
+    }
+</script>
+{%endblock%}

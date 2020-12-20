@@ -1,0 +1,57 @@
+{%extends "producer/dashboard.html"%}
+{%block content%}
+<form action="/producer/updateOrder/{{obj.id}}" method="post">
+    {%csrf_token%}
+    <p class="obq">Basic Order Details</p>
+    <div class="row">
+        <div class="col-sm form-group">
+            <label for="name">Order Name</label>
+            <input type="text" name="name" class="form-control" value="{{obj.product.name}}" readonly>
+        </div>
+        <div class="col-sm form-group">
+            <label for="name">Delivery Addrerss</label>
+            <textarea type="text" name="name" class="form-control" readonly>
+                {{obj.consumer.user_profile.address_lane_1}},{{obj.consumer.user_profile.address_lane_2}},{{obj.consumer.user_profile.city}},{{obj.consumer.user_profile.state}}
+            </textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm form-group">
+            <label for="name">Quantity</label>
+            <input type="text" name="name" class="form-control" value="{{obj.product.quantity}}" readonly>
+        </div>
+        <div class="col-sm form-group">
+            <label for="name">Value</label>
+            <input type="text" name="name" class="form-control" value="{{obj.value}}" readonly>
+        </div>
+    </div>
+    <p class="obq">Update Fields</p>
+    <div class="row">
+        <div class="col-sm form-group">
+            <label for="status">Order Status</label>
+            <select type="text" name="status" class="form-control">
+                <option value="Accepted">Accepted</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Dispatched">Dispatched</option>
+            </select>
+            <caption>Currently Set to {{obj.status}}</caption>
+        </div>
+        <div class="col-sm form-group">
+            <label for="tracking_id">Tracking ID</label>
+            <input type="text" name="tracking_id" value="{{obj.tracking_id}}" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-sm form-group">
+                <label for="courier_name">Courier Name</label>
+                <input type="text" name="courier_name" value="{{obj.courier_name}}" class="form-control">
+            </div>
+            <div class="col-sm form-group">
+                <label for="exp_delivery">Expected Delivery Date</label>
+                <input type="date" name="exp_delivery" class="form-control">
+                <caption>Currently set to {{obj.exp_delivery}}</caption>
+            </div>
+    </div>
+    <input type="submit" class="btn btn-outline-secondary" value="Update Order">
+</form>
+{%endblock%}

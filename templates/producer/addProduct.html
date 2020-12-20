@@ -1,0 +1,44 @@
+{%extends "producer/dashboard.html"%}
+{%block content%}
+<form action="/producer/addProduct" method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
+    <div class="row">
+        <div class="col-sm form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" name="name" required>
+        </div>
+        <div class="col-sm form-group">
+            <label for="image">Product Image</label>
+            <input type="file" id="image" class="form-control" name="image" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm form-group">
+            <label for="ptype">Product Type</label>
+            <select id="name" class="form-control" name="ptype">
+                <option value="Pulses">Pulses</option>
+                <option value="Grains">Grains</option>
+                <option value="Vegetables">Vegetables</option>
+            </select>
+        </div>
+        <div class="col-sm form-group">
+            <label for="quantity">Quantity</label>
+            <input type="text" id="quantity" class="form-control" name="quantity" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm form-group">
+            <label for="ready_to_dispatch">Ready to Dispatch</label>
+            <select id="ready_to_dispatch" class="form-control" name="ready_to_dispatch">
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+            </select>
+        </div>
+        <div class="col-sm form-group">
+            <label for="usual_deliver_time">Usual Delivery Time</label>
+            <input type="text" id="usual_deliver_time" class="form-control" name="usual_deliver_time" required>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-outline-success">
+</form>
+{%endblock%}
